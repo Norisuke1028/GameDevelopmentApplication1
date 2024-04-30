@@ -1,6 +1,6 @@
 #include "Scene.h"
 
-#include"../Objects/Player.h"
+#include"../Objects/Player/Player.h"
 
 //コンストラクタ
 Scene::Scene() : objects()
@@ -23,7 +23,7 @@ void Scene::Initialize()
 }
 
 //更新処理
-void Scene;; Update()
+void Scene::Update()
 {
 	//シーンに存在するオブジェクトを更新処理
 	for (GameObject* obj : objects)

@@ -134,7 +134,7 @@ Vector2D& Vector2D::operator/=(const float& scalar)
 
 Vector2D& Vector2D::operator/=(const Vector2D& location)
 {
-	if ((fabsf(location.x) < 1e-6f) || (fabs(location.y) < 1e-6f))
+	if ((fabsf(location.x) < 1e-6f) || (fabsf(location.y) < 1e-6f))
 	{
 		this->x = 0.0f;
 		this->y = 0.0f;

@@ -3,7 +3,7 @@
 #include"DxLib.h"
 
 //コストラクタ
-Player::Player() : animation_count(0), filp_flag(FALSE)
+Player::Player() : animation_count(0), flip_flag(FALSE)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
@@ -12,7 +12,6 @@ Player::Player() : animation_count(0), filp_flag(FALSE)
 //デストラクタ
 Player::~Player()
 {
-
 }
 
 //初期化処理
@@ -29,10 +28,10 @@ void Player::Initialize()
 	}
 
 	//向きの設定
-	radian = 0.0;
+	radian = 0.0f;
 
-	//大きさの設定
-	scale = 64.0;
+	//当たり判定の大きさを設定
+	box_size = Vector2D(64.0f);
 
 	//初期画像の設定
 	image = animation[0];
@@ -43,27 +42,24 @@ void Player::Update()
 {
 	//移動処理
 	Movement();
+
 	//アニメーション制御
-	AnimeControl();
+	AnimationControl();
 }
 
 //描画処理
 void Player::Draw() const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraph(location.x, location.y, 1.0, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
 
 //デバッグ用
-	#if_DEBUG
+#if _DEBUG
 		//当たり判定の可視化
-		Vector2D box_collision_upper_left = location - (Vector2D(1.0f) *
-			(float)scale / 2.0f);
-	Vector2D box_collision_lower_right = location + (Vector2D(1.0f) *
-		(float)scale / 2.0f);
+	Vector2D ul = location - (box_size / 2.0f);
+	Vector2D br = location + (box_size / 2.0f);
 
-	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
-		box_collision_lower_right.x, box_collision_lower_right.y,
-		GetColor(255, 0, 0), FALSE);
+	DrawBoxAA(ul.x, ul.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
 #endif
 }
 
@@ -91,12 +87,12 @@ void Player::Movement()
 	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
 		velocity.x += -1.0f;
-		rilp_flag = TRUE;
+		flip_flag = TRUE;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
 		velocity.x += 1.0f;
-		filp_flag = FALSE;
+		flip_flag = FALSE;
 	}
 	else
 	{
@@ -108,7 +104,7 @@ void Player::Movement()
 }
 
 //アニメーション制御
-void Player::AnimeControl()
+void Player::AnimationControl()
 {
 	//フレームカウントを加算する
 	animation_count++;

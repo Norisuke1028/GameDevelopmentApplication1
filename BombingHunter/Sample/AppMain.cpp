@@ -1,5 +1,5 @@
 #include"DxLib.h"
-#include"Utility/InputControl..h"
+#include"Utility/InputControl.h"
 #include"Scene/Scene.h"
 
 //メイン関数（プログラムはここから始まります。）

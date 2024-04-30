@@ -7,7 +7,7 @@ class Player : public GameObject
 private:
 	int animation[2];    //アニメーション画像
 	int animation_count;  //アニメーション時間
-	int filp_flag;       //反転フラグ
+	int flip_flag;       //反転フラグ
 
 public:
 	Player();
@@ -25,6 +25,6 @@ private:
 	//移動処理
 	void Movement();
 	//アニメーション制御
-	void AnimeControl();
+	void AnimationControl();
 };
 
